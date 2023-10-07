@@ -36,13 +36,13 @@ class ArticleController extends Controller
     // public function listTagged() {
         
     // }
-    public function details($id)
+    public function details(Request $request)
     {
         // $comments = Comment::where('article_id', [$id])
         // ->orderBy("created_at", "desc")
         // ->get();
         
-        $article = Article::find($id);
+        $article = Article::find($request->id);
         $comments = $article->comments->sortByDesc("created_at");
         $tags = $article->tags;
         return view('article', ['article' => $article, 'comments' => $comments, 'tags' => $tags]);
