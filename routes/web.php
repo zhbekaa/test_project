@@ -21,6 +21,3 @@ Route::get('/', [ArticleController::class, 'listWelcome']);
 Route::get('/articles', [ArticleController::class, 'list']);
 Route::get('/articles/{id}', [ArticleController::class, 'details']);
 Route::get('/articles?tag={tag_id}', [ArticleController::class, 'list']);
-Route::post('Like', [ArticleController::class, 'postLike'])->name('Like');
-
-Route::post('Comment', [CommentController::class, 'postComment'])->name('Comment');

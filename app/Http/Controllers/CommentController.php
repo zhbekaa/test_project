@@ -10,7 +10,7 @@ class CommentController extends Controller
     public function postComment(Request $request)
     {
 
-        if (empty($request->subject) || empty($request->content)) return response()->json('ValidationException');
+        if (!$request->subject || !$request->content) return response()->json('ValidationException');
         $data = [
             'subject' => $request->subject,
             'content' => $request->content,

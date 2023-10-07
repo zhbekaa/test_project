@@ -13,9 +13,7 @@ class ArticleController extends Controller
 {
     public function listWelcome()
     {
-
         $articles = Article::orderBy("created_at", "desc")->simplePaginate(6);
-
         return view('welcome', ['articles' => $articles]);
     }
 
@@ -23,7 +21,6 @@ class ArticleController extends Controller
     {
         if ($request->input('tag')) {
             $tag = Tag::find($request->input('tag'));
-          
             $articles = $tag->articles()->orderBy("created_at", "desc")->simplePaginate(10);
            
         } else {
@@ -33,23 +30,15 @@ class ArticleController extends Controller
         
         return view('articles', ['articles' => $articles]);
     }
-    // public function listTagged() {
-        
-    // }
     public function details(Request $request)
     {
-        // $comments = Comment::where('article_id', [$id])
-        // ->orderBy("created_at", "desc")
-        // ->get();
-        
         $article = Article::find($request->id);
         $comments = $article->comments->sortByDesc("created_at");
         $tags = $article->tags;
         return view('article', ['article' => $article, 'comments' => $comments, 'tags' => $tags]);
     }
     public function postLike(Request $request) {
-        
-        $article = Article::whereIn('id', [$request->id])->get()[0];
+        $article = Article::find($request->id);
         $article->like++;
         $article->save();
         

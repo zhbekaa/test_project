@@ -50,7 +50,7 @@
             </button>
         </div>
         <div class='container'>
-            <form action="{{route('Comment')}}" method="POST" id="commentForm">
+            <form action="{{route('comment')}}" method="POST" id="commentForm">
                 @csrf
                 <h3>Comments</h3>
                 <input type="text" style="margin-bottom: 5px;" id='subject' name='subject' placeholder="Subject...">
@@ -80,7 +80,7 @@
 
                     $.ajax({
 
-                        url: "{{route('Like')}}",
+                        url: "{{route('like')}}",
                         type: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',
@@ -104,7 +104,7 @@
                                 </div>`
                     }
                     $.ajax({
-                        url: "{{route('Comment')}}",
+                        url: "{{route('comment')}}",
                         type: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',
