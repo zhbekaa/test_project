@@ -62,8 +62,8 @@
             <div id='comments-container'>
                 @foreach ($comments as $comment)
                 <div class='comment' style="background-color:white; margin: 15px; padding: 1px 7px 10px 7px ; border: none; box-shadow: 5px 6px 6px 2px #e9ecef; border-radius: 4px;">
-                    <h3>{{$comment->subject}}</h3>
-                    <span>{{$comment->content}}</span>
+                    <h3>{{ $comment->subject }}</h3>
+                    <span>{{ $comment->content }}</span>
                 </div>
                 @endforeach
             </div>
@@ -97,10 +97,14 @@
                 $('#commentForm').on('submit', function(e) {
                     e.preventDefault();
 
+                    function htmlEntities(str) {
+                        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+                    }
+
                     function container(subject, content) {
                         return `<div class='comment' style="background-color:white; margin: 15px; padding: 1px 7px 10px 7px ; border: none; box-shadow: 5px 6px 6px 2px #e9ecef; border-radius: 4px;">
-                                    <h3>${subject}</h3>
-                                    <span>${content}</span>
+                                    <h3>${htmlEntities(subject)}</h3>
+                                    <span>${htmlEntities(content)}</span>
                                 </div>`
                     }
                     $.ajax({
@@ -114,7 +118,6 @@
                             'articleId': '{{$article->id}}'
                         },
                         success: function(result) {
-                            console.log(result)
                             if (result === 'ValidationException') {
 
                                 $('#success-message').text('Напишите тему и комментарий')
