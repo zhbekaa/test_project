@@ -69,7 +69,8 @@
             </div>
         </div>
         <script>
-            articleId = Number(document.location.toString().split("/").slice(-1))
+            // articleId = Number(document.location.toString().split("/").slice(-1))
+            
             $(document).ready(function() {
                 $.ajaxSetup({
                     headers: {
@@ -84,7 +85,7 @@
                         type: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',
-                            id: articleId,
+                            id: '{{$article->id}}',
                         },
                         success: function(result) {
                             $('#likeLabel').text(result['success'])
